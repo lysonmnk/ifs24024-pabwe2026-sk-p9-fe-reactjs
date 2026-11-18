@@ -51,6 +51,7 @@ export const StickyNavbar = ({
               </div>
               <input
                 type="text"
+                aria-label="Cari artikel berdasarkan judul atau konten"
                 placeholder="Cari artikel berdasarkan judul atau konten..."
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}

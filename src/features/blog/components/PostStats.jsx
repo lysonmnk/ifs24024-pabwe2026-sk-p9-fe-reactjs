@@ -45,9 +45,9 @@ export const PostStats = ({ stats = { total: 0, published: 0, drafts: 0 } }) => 
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 {card.title}
               </p>
-              <h3 className={`text-3xl font-extrabold mt-1 ${card.textColor}`}>
+              <p className={`text-3xl font-extrabold mt-1 ${card.textColor}`}>
                 {card.value}
-              </h3>
+              </p>
             </div>
             <div className={`p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 ${card.textColor} shadow-xs`}>
               <Icon size={28} />

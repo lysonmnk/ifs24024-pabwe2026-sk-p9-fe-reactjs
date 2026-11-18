@@ -13,6 +13,17 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    sourcemap: true,
+    target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

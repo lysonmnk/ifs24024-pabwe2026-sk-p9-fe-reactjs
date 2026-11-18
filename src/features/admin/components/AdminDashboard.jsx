@@ -107,9 +107,9 @@ export const AdminDashboard = ({ user, onNavigate }) => {
             <p className="text-xs font-bold uppercase tracking-wider text-purple-700 dark:text-purple-300">
               Total Pengguna Terdaftar
             </p>
-            <h3 className="text-3xl font-black text-slate-900 dark:text-white mt-1">
+            <p className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               {users.length}
-            </h3>
+            </p>
           </div>
           <div className="p-3 rounded-xl bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">
             <IconUsers size={28} />
@@ -128,9 +128,9 @@ export const AdminDashboard = ({ user, onNavigate }) => {
             <p className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300">
               Total Seluruh Postingan Sistem
             </p>
-            <h3 className="text-3xl font-black text-slate-900 dark:text-white mt-1">
+            <p className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               {posts.length}
-            </h3>
+            </p>
           </div>
           <div className="p-3 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300">
             <IconArticle size={28} />
@@ -147,7 +147,7 @@ export const AdminDashboard = ({ user, onNavigate }) => {
             className={`pb-3 text-sm font-bold border-b-2 transition cursor-pointer ${
               activeTab === 'users'
                 ? 'border-purple-600 text-purple-600 dark:border-purple-400 dark:text-purple-400'
-                : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                : 'border-transparent text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'
             }`}
           >
             Direktori Pengguna ({users.length})
@@ -157,7 +157,7 @@ export const AdminDashboard = ({ user, onNavigate }) => {
             className={`pb-3 text-sm font-bold border-b-2 transition cursor-pointer ${
               activeTab === 'posts'
                 ? 'border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                : 'border-transparent text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'
             }`}
           >
             Arsip Seluruh Artikel ({posts.length})
@@ -314,9 +314,9 @@ export const AdminDashboard = ({ user, onNavigate }) => {
           <div className="w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 bg-purple-700 text-white">
               <div>
-                <h3 className="font-bold text-lg">
+                <h2 className="font-bold text-lg">
                   Artikel Penulis: {selectedUserPosts.user ? selectedUserPosts.user.username : 'User'}
-                </h3>
+                </h2>
                 <p className="text-xs text-purple-200">
                   Total {selectedUserPosts.posts ? selectedUserPosts.posts.length : 0} artikel
                 </p>
@@ -333,9 +333,9 @@ export const AdminDashboard = ({ user, onNavigate }) => {
                 selectedUserPosts.posts.map((p) => (
                   <div key={p.id} className="py-3 flex items-center justify-between">
                     <div>
-                      <h4 className="font-semibold text-slate-900 dark:text-white text-sm">
+                      <p className="font-semibold text-slate-900 dark:text-white text-sm">
                         {p.title}
-                      </h4>
+                      </p>
                       <span className="text-xs text-slate-400">
                         {p.category} • {formatDate(p.created_at)}
                       </span>

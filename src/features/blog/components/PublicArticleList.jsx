@@ -112,9 +112,9 @@ export const PublicArticleList = ({ searchTerm = '', onSelectArticle, onNavigate
           <div className="inline-flex p-3 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 mb-3">
             <IconSparkles size={28} />
           </div>
-          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
+          <p className="text-lg font-semibold text-slate-800 dark:text-slate-200">
             Tidak ada artikel ditemukan
-          </h3>
+          </p>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
             {searchTerm
               ? `Tidak ada artikel yang cocok dengan kata kunci "${searchTerm}".`
