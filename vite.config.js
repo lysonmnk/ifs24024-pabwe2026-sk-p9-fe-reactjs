@@ -2,8 +2,26 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+function inlineCss() {
+  return {
+    name: 'inline-css',
+    apply: 'build',
+    enforce: 'post',
+    transformIndexHtml(html, ctx) {
+      if (!ctx.bundle) return html
+      for (const [fileName, file] of Object.entries(ctx.bundle)) {
+        if (fileName.endsWith('.css') && file.source) {
+          const linkRegex = new RegExp(`<link[^>]*href="[^"]*${fileName}"[^>]*>`)
+          html = html.replace(linkRegex, `<style>${file.source}</style>`)
+        }
+      }
+      return html
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), inlineCss()],
   server: {
     port: 5174,
     proxy: {
@@ -16,6 +34,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     target: 'esnext',
+    modulePreload: false,
     rollupOptions: {
       output: {
         manualChunks: {
