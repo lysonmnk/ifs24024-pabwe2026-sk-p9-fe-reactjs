@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@toast-ui/editor/dist/toastui-editor.css";
+@import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
+
+/* Custom utility styles */
+.toastui-editor-defaultUI {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border-color: #cbd5e1;
+}
+
+.dark .toastui-editor-defaultUI {
+  border-color: #334155;
+}
