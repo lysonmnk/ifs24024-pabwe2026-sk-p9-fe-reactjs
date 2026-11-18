@@ -27,13 +27,13 @@ describe('blogApi', () => {
     apiHelper.get.mockResolvedValue({ status: 'success' })
 
     await getPublicPosts({ search: 'golang', category: 'Teknologi', page: 1, limit: 10 })
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts?search=golang&category=Teknologi&page=1&limit=10')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/public/posts?search=golang&category=Teknologi&page=1&limit=10')
 
     await getPublicPosts({ category: 'Semua' })
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/public/posts')
 
     await getPublicPosts()
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/public/posts')
   })
 
   it('calls detail, categories, and author CRUD endpoints', async () => {
@@ -44,41 +44,41 @@ describe('blogApi', () => {
     apiHelper.apiRequest.mockResolvedValue({ status: 'success' })
 
     await getPublicPostBySlug('test-slug')
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts/test-slug')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/public/posts/test-slug')
 
     await getCategories()
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts/categories')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/public/categories')
 
     await getAuthorPosts()
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts/author')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts')
 
     await createPost({ title: 'New' })
-    expect(apiHelper.post).toHaveBeenCalledWith('/api/posts/author', { title: 'New' })
+    expect(apiHelper.post).toHaveBeenCalledWith('/api/posts', { title: 'New' })
 
     await updatePost(1, { title: 'Updated' })
-    expect(apiHelper.put).toHaveBeenCalledWith('/api/posts/author/1', { title: 'Updated' })
+    expect(apiHelper.put).toHaveBeenCalledWith('/api/posts/1', { title: 'Updated' })
 
     await deletePost(1)
-    expect(apiHelper.del).toHaveBeenCalledWith('/api/posts/author/1')
+    expect(apiHelper.del).toHaveBeenCalledWith('/api/posts/1')
 
     await togglePublishPost(1)
-    expect(apiHelper.apiRequest).toHaveBeenCalledWith('/api/posts/author/1/toggle', { method: 'PATCH' })
+    expect(apiHelper.apiRequest).toHaveBeenCalledWith('/api/posts/1/toggle-publish', { method: 'PATCH' })
 
     await getPostStats()
-    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts/author/stats')
+    expect(apiHelper.get).toHaveBeenCalledWith('/api/posts/stats')
   })
 
   it('calls generateAiPost with search option', async () => {
     apiHelper.post.mockResolvedValue({ status: 'success' })
 
     await generateAiPost('My Topic', true)
-    expect(apiHelper.post).toHaveBeenCalledWith('/api/ai/generate', {
+    expect(apiHelper.post).toHaveBeenCalledWith('/api/posts/ai-generate', {
       prompt: 'My Topic',
       use_search: true,
     })
 
     await generateAiPost('Topic 2')
-    expect(apiHelper.post).toHaveBeenCalledWith('/api/ai/generate', {
+    expect(apiHelper.post).toHaveBeenCalledWith('/api/posts/ai-generate', {
       prompt: 'Topic 2',
       use_search: false,
     })

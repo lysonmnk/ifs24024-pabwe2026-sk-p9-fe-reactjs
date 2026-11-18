@@ -26,13 +26,15 @@ export const AdminDashboard = ({ user, onNavigate }) => {
         getAllUsers(),
         getAllPosts(),
       ])
-      if (usersRes && usersRes.data && Array.isArray(usersRes.data.users)) {
-        setUsers(usersRes.data.users)
+      const rawUsers = usersRes?.data?.users || usersRes?.data
+      if (Array.isArray(rawUsers)) {
+        setUsers(rawUsers)
       } else {
         setUsers([])
       }
-      if (postsRes && postsRes.data && Array.isArray(postsRes.data.posts)) {
-        setPosts(postsRes.data.posts)
+      const rawPosts = postsRes?.data?.posts || postsRes?.data
+      if (Array.isArray(rawPosts)) {
+        setPosts(rawPosts)
       } else {
         setPosts([])
       }
@@ -51,7 +53,11 @@ export const AdminDashboard = ({ user, onNavigate }) => {
     try {
       const res = await getUserPosts(targetUser.id)
       if (res && res.data) {
-        setSelectedUserPosts(res.data)
+        if (Array.isArray(res.data)) {
+          setSelectedUserPosts({ user: targetUser, posts: res.data })
+        } else {
+          setSelectedUserPosts(res.data)
+        }
       }
     } catch (err) {
       alert(err.message || 'Gagal memuat artikel pengguna.')

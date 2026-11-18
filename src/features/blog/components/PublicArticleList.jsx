@@ -33,8 +33,9 @@ export const PublicArticleList = ({ searchTerm = '', onSelectArticle, onNavigate
         search: searchTerm,
         category: selectedCategory,
       })
-      if (res && res.data && Array.isArray(res.data.posts)) {
-        setPosts(res.data.posts)
+      const rawPosts = res?.data?.posts || res?.data
+      if (Array.isArray(rawPosts)) {
+        setPosts(rawPosts)
       } else {
         setPosts([])
       }

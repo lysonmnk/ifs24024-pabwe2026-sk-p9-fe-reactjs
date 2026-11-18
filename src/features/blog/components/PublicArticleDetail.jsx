@@ -29,8 +29,9 @@ export const PublicArticleDetail = ({ slug, post: initialPost, onBack }) => {
       setError(null)
       try {
         const res = await getPublicPostBySlug(slug)
-        if (res && res.data && res.data.post) {
-          setPost(res.data.post)
+        const postData = res?.data?.post || res?.data
+        if (postData && typeof postData === 'object' && postData.title) {
+          setPost(postData)
         } else {
           setError('Artikel tidak ditemukan.')
         }

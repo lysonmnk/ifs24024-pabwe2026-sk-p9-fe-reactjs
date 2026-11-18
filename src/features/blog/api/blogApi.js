@@ -8,44 +8,44 @@ export const getPublicPosts = async (params = {}) => {
   if (params.limit) query.append('limit', params.limit)
 
   const queryString = query.toString()
-  const url = `/api/posts${queryString ? `?${queryString}` : ''}`
+  const url = `/api/public/posts${queryString ? `?${queryString}` : ''}`
   return await get(url)
 }
 
 export const getPublicPostBySlug = async (slug) => {
-  return await get(`/api/posts/${slug}`)
+  return await get(`/api/public/posts/${slug}`)
 }
 
 export const getCategories = async () => {
-  return await get('/api/posts/categories')
+  return await get('/api/public/categories')
 }
 
 export const getAuthorPosts = async () => {
-  return await get('/api/posts/author')
+  return await get('/api/posts')
 }
 
 export const createPost = async (postData) => {
-  return await post('/api/posts/author', postData)
+  return await post('/api/posts', postData)
 }
 
 export const updatePost = async (id, postData) => {
-  return await put(`/api/posts/author/${id}`, postData)
+  return await put(`/api/posts/${id}`, postData)
 }
 
 export const deletePost = async (id) => {
-  return await del(`/api/posts/author/${id}`)
+  return await del(`/api/posts/${id}`)
 }
 
 export const togglePublishPost = async (id) => {
-  return await apiRequest(`/api/posts/author/${id}/toggle`, { method: 'PATCH' })
+  return await apiRequest(`/api/posts/${id}/toggle-publish`, { method: 'PATCH' })
 }
 
 export const getPostStats = async () => {
-  return await get('/api/posts/author/stats')
+  return await get('/api/posts/stats')
 }
 
 export const generateAiPost = async (prompt, useSearch = false) => {
-  return await post('/api/ai/generate', { prompt, use_search: useSearch })
+  return await post('/api/posts/ai-generate', { prompt, use_search: useSearch })
 }
 
 export default {

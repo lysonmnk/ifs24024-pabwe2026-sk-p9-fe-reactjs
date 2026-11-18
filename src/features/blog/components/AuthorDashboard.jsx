@@ -41,8 +41,9 @@ export const AuthorDashboard = ({ user, isDark, onNavigate }) => {
         getAuthorPosts(),
         getPostStats(),
       ])
-      if (postsRes && postsRes.data && Array.isArray(postsRes.data.posts)) {
-        setPosts(postsRes.data.posts)
+      const rawPosts = postsRes?.data?.posts || postsRes?.data
+      if (Array.isArray(rawPosts)) {
+        setPosts(rawPosts)
       } else {
         setPosts([])
       }

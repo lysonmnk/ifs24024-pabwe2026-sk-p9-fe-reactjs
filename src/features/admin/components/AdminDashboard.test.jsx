@@ -121,10 +121,7 @@ describe('AdminDashboard', () => {
     })
     adminApi.getUserPosts.mockResolvedValue({
       status: 'success',
-      data: {
-        user: mockUsers[1],
-        posts: [mockPosts[0], mockPosts[1]],
-      },
+      data: [mockPosts[0], mockPosts[1]],
     })
 
     render(<AdminDashboard user={{ id: 1, role: 'admin' }} />)

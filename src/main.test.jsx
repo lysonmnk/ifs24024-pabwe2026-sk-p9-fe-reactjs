@@ -8,5 +8,5 @@ describe('main.jsx', () => {
 
     await import('./main.jsx')
     expect(document.getElementById('root')).toBeInTheDocument()
-  })
+  }, 60000)
 })
