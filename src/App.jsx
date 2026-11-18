@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { StickyNavbar } from './features/blog/components/StickyNavbar'
 import { PublicArticleList } from './features/blog/components/PublicArticleList'
-import { PublicArticleDetail } from './features/blog/components/PublicArticleDetail'
-import { AuthorDashboard } from './features/blog/components/AuthorDashboard'
-import { AdminDashboard } from './features/admin/components/AdminDashboard'
 import { AuthPage } from './features/auth/components/AuthPage'
 import { AuthModal } from './features/auth/modals/AuthModal'
+
+const PublicArticleDetail = React.lazy(() =>
+  import('./features/blog/components/PublicArticleDetail').then((m) => ({
+    default: m.PublicArticleDetail,
+  }))
+)
+const AuthorDashboard = React.lazy(() =>
+  import('./features/blog/components/AuthorDashboard').then((m) => ({
+    default: m.AuthorDashboard,
+  }))
+)
+const AdminDashboard = React.lazy(() =>
+  import('./features/admin/components/AdminDashboard').then((m) => ({
+    default: m.AdminDashboard,
+  }))
+)
 import { useTheme } from './hooks/useTheme'
 import { getUser, removeToken, removeUser } from './helpers/apiHelper'
 import { showToast } from './helpers/toolsHelper'
@@ -143,7 +156,9 @@ export const App = () => {
         onLogout={handleLogout}
       />
 
-      <main className="flex-1 w-full pb-16">{renderRoute()}</main>
+      <main className="flex-1 w-full pb-16">
+        <React.Suspense fallback={null}>{renderRoute()}</React.Suspense>
+      </main>
 
       <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
         <div className="max-w-7xl mx-auto px-4">

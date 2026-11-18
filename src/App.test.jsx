@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import React from 'react'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { App } from './App'
 import defaultApp from './App'
 import * as apiHelper from './helpers/apiHelper'
@@ -98,7 +98,7 @@ describe('App', () => {
     window.scrollTo = vi.fn()
   })
 
-  it('renders home page and navigates through popstate and clicks', () => {
+  it('renders home page and navigates through popstate and clicks', async () => {
     render(<App />)
 
     expect(screen.getByTestId('mock-public-list')).toBeInTheDocument()
@@ -106,7 +106,7 @@ describe('App', () => {
 
     // Navigate to post detail
     fireEvent.click(screen.getByRole('button', { name: /Pilih Artikel/i }))
-    expect(screen.getByTestId('mock-public-detail')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByTestId('mock-public-detail')).toBeInTheDocument())
     expect(screen.getByText('Detail: artikel-pertama')).toBeInTheDocument()
 
     // Back from detail
@@ -118,10 +118,10 @@ describe('App', () => {
       window.history.pushState({}, '', '/posts/artikel-dua')
       window.dispatchEvent(new PopStateEvent('popstate'))
     })
-    expect(screen.getByText('Detail: artikel-dua')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText('Detail: artikel-dua')).toBeInTheDocument())
   })
 
-  it('handles guest attempting to access /author and /admin', () => {
+  it('handles guest attempting to access /author and /admin', async () => {
     apiHelper.getUser.mockReturnValue(null)
 
     render(<App />)
@@ -133,7 +133,7 @@ describe('App', () => {
 
     // Author Login success transitions to author dashboard
     fireEvent.click(screen.getByRole('button', { name: /Sukses Login Author/i }))
-    expect(screen.getByTestId('mock-author-dashboard')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByTestId('mock-author-dashboard')).toBeInTheDocument())
 
     // Attempting to access admin as author redirects to login AuthPage
     act(() => {
@@ -144,7 +144,7 @@ describe('App', () => {
 
     // Admin Login success transitions to admin dashboard
     fireEvent.click(screen.getByRole('button', { name: /Sukses Login Admin/i }))
-    expect(screen.getByTestId('mock-admin-dashboard')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByTestId('mock-admin-dashboard')).toBeInTheDocument())
   })
 
   it('handles direct route to /login and /register', () => {
@@ -160,7 +160,7 @@ describe('App', () => {
     expect(screen.getByText('Mode: register')).toBeInTheDocument()
   })
 
-  it('handles AuthModal trigger and success from navbar', () => {
+  it('handles AuthModal trigger and success from navbar', async () => {
     render(<App />)
 
     // Click Masuk on navbar
@@ -174,7 +174,7 @@ describe('App', () => {
     // Reopen and complete auth
     fireEvent.click(screen.getByRole('button', { name: /Masuk/i }))
     fireEvent.click(screen.getByRole('button', { name: /Sukses Modal/i }))
-    expect(screen.getByTestId('mock-author-dashboard')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByTestId('mock-author-dashboard')).toBeInTheDocument())
   })
 
   it('handles logout flow', () => {
