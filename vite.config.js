@@ -20,6 +20,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          toastui: ['@toast-ui/editor'],
+          icons: ['@tabler/icons-react'],
         },
       },
     },
